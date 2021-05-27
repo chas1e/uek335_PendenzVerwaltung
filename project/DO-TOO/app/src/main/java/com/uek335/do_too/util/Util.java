@@ -6,7 +6,7 @@ import java.util.Date;
 public class Util {
     public static String formatDate(Date date){
         SimpleDateFormat simpleDateFormat = (SimpleDateFormat) SimpleDateFormat.getDateInstance();
-        simpleDateFormat.applyPattern(("EEE, MMM d"));
+        simpleDateFormat.applyPattern(("dd/MM/yyyy"));
         return simpleDateFormat.format(date);
     }
 }

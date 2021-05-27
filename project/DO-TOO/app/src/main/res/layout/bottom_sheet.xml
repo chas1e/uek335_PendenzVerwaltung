@@ -8,7 +8,7 @@
     android:layout_height="match_parent"
     android:background="#fff"
     app:behavior_hideable="false"
-    app:behavior_peekHeight="@dimen/dimen_32"
+    app:behavior_peekHeight="@dimen/dimen_34"
     app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
 
 
@@ -114,6 +114,7 @@
         android:id="@+id/calendar_view"
         android:layout_width="318dp"
         android:layout_height="296dp"
+        android:paddingEnd="3dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.494"
@@ -162,7 +163,7 @@
         android:id="@+id/calendar_group"
         android:layout_width="280dp"
         android:layout_height="0dp"
-        android:visibility="gone"
+        android:visibility="visible"
         app:constraint_referenced_ids="calendar_view,next_week_chip,tomorrow_chip,today_chip,textView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -179,8 +180,6 @@
         app:layout_constraintStart_toEndOf="@+id/priority_todo_button"
         app:layout_constraintTop_toBottomOf="@+id/enter_todo_et"
         app:srcCompat="@drawable/ic_baseline_description_24" />
-
-
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

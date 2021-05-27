@@ -43,7 +43,7 @@
         android:id="@+id/recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="@dimen/dimen_60"
+        android:layout_marginTop="@dimen/dimen_65"
         android:padding="@dimen/recycler_padding"
         android:visibility="visible">
 
