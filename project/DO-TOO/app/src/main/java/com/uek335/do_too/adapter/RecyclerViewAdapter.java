@@ -54,8 +54,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         }
 
         holder.task.setText(task.getTask());
-
         holder.priority.setText(task.getPriority().toString());
+
     }
 
     @Override

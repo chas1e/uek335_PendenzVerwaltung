@@ -32,7 +32,7 @@
                 android:hint="@string/enter_todo_hint"
                 android:inputType="textPersonName"
                 android:padding="@dimen/dimen_16"
-                android:maxLength="500"
+                android:maxLength="50"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -212,6 +212,7 @@
                 android:visibility="gone"
                 app:counterEnabled="true"
                 app:counterMaxLength="500"
+                android:maxLength="500"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

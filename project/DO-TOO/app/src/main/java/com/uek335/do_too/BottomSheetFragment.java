@@ -9,6 +9,8 @@ import android.view.ViewGroup;
 import android.widget.CalendarView;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.PopupMenu;
+import android.widget.Toast;
 
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.google.android.material.chip.Chip;
@@ -20,6 +22,7 @@ import com.uek335.do_too.model.Task;
 import com.uek335.do_too.model.TaskViewModel;
 import com.uek335.do_too.util.Util;
 
+import androidx.annotation.MenuRes;
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.Group;
 import androidx.lifecycle.ViewModelProvider;
@@ -36,7 +39,6 @@ public class BottomSheetFragment extends BottomSheetDialogFragment implements Vi
     private ImageButton priorityButton;
     private EditText description;
     private Menu priorityPicker;
-    private EditText selectedPriority;
     private int selectedButtonId;
     private CalendarView calendarView;
     private ImageButton saveButton;
@@ -45,6 +47,7 @@ public class BottomSheetFragment extends BottomSheetDialogFragment implements Vi
     private Calendar calendar = Calendar.getInstance();
     private SharedViewModel sharedViewModel;
     private boolean isEdit;
+    private Priority priority;
 
     public BottomSheetFragment(){
 
@@ -62,9 +65,11 @@ public class BottomSheetFragment extends BottomSheetDialogFragment implements Vi
         enterTodo = view.findViewById(R.id.enter_todo_et);
         saveButton = view.findViewById(R.id.save_todo_button);
         priorityButton = view.findViewById(R.id.priority_todo_button);
+
         //priorityPicker = view.findViewById((R.id.priority_picker));
         enterDescription = view.findViewById(R.id.enter_description);
         description = view.findViewById(R.id.description);
+
 
         Chip todayChip = view.findViewById(R.id.today_chip);
         todayChip.setOnClickListener(this);
@@ -81,19 +86,34 @@ public class BottomSheetFragment extends BottomSheetDialogFragment implements Vi
         super.onResume();
         if(sharedViewModel.getSelectedItem().getValue() != null){
             isEdit = sharedViewModel.isEdit();
-
             Task task = sharedViewModel.getSelectedItem().getValue();
             enterTodo.setText(task.getTask());
             dueDate = task.getDueDate();
             description.setText(task.getTaskDescription());
+            priority = task.getPriority();
 
         }
+    }
+
+    private void showMenu(View view, @MenuRes int menuRes){
+        PopupMenu popup = new PopupMenu(getContext(), view);
+        popup.getMenuInflater().inflate(menuRes, popup.getMenu());
+        popup.show();
+
+        popup.setOnMenuItemClickListener(menuItem -> {
+            priority = Priority.valueOf(menuItem.getTitle().toString());
+            return true;
+        });
+
     }
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         sharedViewModel = new ViewModelProvider(requireActivity()).get(SharedViewModel.class);
 
+        priorityButton.setOnClickListener(view12 -> {
+            showMenu(view12, R.menu.priority_menu);
+        });
         calendarButton.setOnClickListener(view12 -> calendarGroup.setVisibility(
                 calendarGroup.getVisibility() == View.GONE ? View.VISIBLE : View.GONE));
         calendarGroup.setVisibility(View.GONE);
@@ -109,28 +129,33 @@ public class BottomSheetFragment extends BottomSheetDialogFragment implements Vi
 
 
         saveButton.setOnClickListener(view1 -> {
+            if(priority == null){
+                priority = Priority.Normal;
+            }
             String task = enterTodo.getText().toString().trim();
             String description_text = description.getText().toString().trim();
             if(!TextUtils.isEmpty(task)){
-                Task myTask = new Task(task, description_text, Priority.Normal, dueDate, Calendar.getInstance().getTime(), false);
+                Task myTask = new Task(task, description_text, priority, dueDate, Calendar.getInstance().getTime(), false);
                 if (isEdit){
                     Task updateTask = sharedViewModel.getSelectedItem().getValue();
                     updateTask.setTask(task);
                     updateTask.setDateCreated((Calendar.getInstance().getTime()));
                     updateTask.setDueDate(dueDate);
-                    updateTask.setPriority(Priority.Normal);
+                    updateTask.setPriority(priority);
                     updateTask.setTaskDescription(description_text);
                     TaskViewModel.update(updateTask);
                     sharedViewModel.setEdit(false);
                     this.dueDate = null;
-                    this.enterTodo = null;
+                    this.enterTodo.setText("");
                     this.description = null;
+                    this.priority = null;
                     this.dismiss();
                 }else{
                     TaskViewModel.insert(myTask);
                     this.dueDate = null;
-                    this.enterTodo = null;
+                    this.enterTodo.setText("");
                     this.description = null;
+                    this.priority = null;
                     this.dismiss();
                 }
             }else {
