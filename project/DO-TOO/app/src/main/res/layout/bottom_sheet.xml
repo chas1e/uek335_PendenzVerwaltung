@@ -209,6 +209,7 @@
                 android:inputType="text|textMultiLine"
                 android:padding="@dimen/dimen_16"
                 android:paddingBottom="@dimen/dimen_16"
+                android:visibility="gone"
                 app:counterEnabled="true"
                 app:counterMaxLength="500"
                 app:layout_constraintBottom_toBottomOf="parent"

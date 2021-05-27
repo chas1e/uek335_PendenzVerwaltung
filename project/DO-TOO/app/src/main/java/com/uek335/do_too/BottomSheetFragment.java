@@ -105,18 +105,21 @@ public class BottomSheetFragment extends BottomSheetDialogFragment implements Vi
         });
 
         enterDescription.setOnClickListener(view13 -> description.setVisibility(description.getVisibility() == View.GONE ? View.VISIBLE : View.GONE));
+        description.setVisibility(View.GONE);
+
 
         saveButton.setOnClickListener(view1 -> {
             String task = enterTodo.getText().toString().trim();
+            String description_text = description.getText().toString().trim();
             if(!TextUtils.isEmpty(task)){
-                Task myTask = new Task(task, "", Priority.Normal, dueDate, Calendar.getInstance().getTime(), false);
+                Task myTask = new Task(task, description_text, Priority.Normal, dueDate, Calendar.getInstance().getTime(), false);
                 if (isEdit){
                     Task updateTask = sharedViewModel.getSelectedItem().getValue();
                     updateTask.setTask(task);
                     updateTask.setDateCreated((Calendar.getInstance().getTime()));
                     updateTask.setDueDate(dueDate);
                     updateTask.setPriority(Priority.Normal);
-                    updateTask.setTaskDescription("ajsi ");
+                    updateTask.setTaskDescription(description_text);
                     TaskViewModel.update(updateTask);
                     sharedViewModel.setEdit(false);
                     this.dueDate = null;
