@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">DO-TOO</string>
+    <!-- Strings used for fragments for navigation -->
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="enter_todo_hint">z.B. Einkaufen gehen</string>
+    <string name="today_calendar_button">Heute</string>
+    <string name="empty_field">Leere Pendenz</string>
+    <string name="due_date_text">Datum</string>
+    <string name="today">Heute</string>
+    <string name="tomorrow">Morgen</string>
+    <string name="this_wknd">This Weekend</string>
+    <string name="next_week">Nächste Woche</string>
+    <string name="radio_high">High</string>
+    <string name="radio_med">Medium</string>
+    <string name="radio_low">Low</string>
+    <string name="image_description">button image</string>
+    <string name="add_todos">Add a Todo...</string>
+</resources>
