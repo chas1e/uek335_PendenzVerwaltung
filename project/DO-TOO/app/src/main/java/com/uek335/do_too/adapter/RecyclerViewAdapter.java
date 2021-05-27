@@ -3,11 +3,15 @@ package com.uek335.do_too.adapter;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
+import android.graphics.Paint;
 import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -18,6 +22,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.snackbar.Snackbar;
 import com.uek335.do_too.R;
+import com.uek335.do_too.model.Priority;
 import com.uek335.do_too.model.Task;
 import com.uek335.do_too.model.TaskViewModel;
 import com.uek335.do_too.util.Util;
@@ -28,7 +33,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     private final List<Task> tasksList;
     private final OnTodoClickListener todoClickListener;
     private TextView textView2;
-
 
     public RecyclerViewAdapter(List<Task> tasksList, OnTodoClickListener onTodoClickListener) {
         this.tasksList = tasksList;
@@ -44,17 +48,25 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerViewAdapter.ViewHolder holder, int position) {
+        Task task_obj = tasksList.get(position);
 
-        Task task = tasksList.get(position);
-        if(task.getDueDate() != null){
-            String formatted = Util.formatDate(task.getDueDate());
+        if(task_obj.getDueDate() != null){
+            String formatted = Util.formatDate(task_obj.getDueDate());
             holder.todoChip.setText(formatted);
         }else{
             holder.todoChip.setText(R.string.nodate);
         }
 
-        holder.task.setText(task.getTask());
-        holder.priority.setText(task.getPriority().toString());
+        holder.task.setText(task_obj.getTask());
+        holder.priority.setText(task_obj.getPriority().toString());
+        if(task_obj.getPriority() == Priority.Hoch){
+            holder.priority.setTextColor(Color.parseColor("#E53935"));
+        }else if(task_obj.getPriority() == Priority.Niedrig){
+            holder.priority.setTextColor(Color.parseColor("#43A047"));
+        }
+        if(task_obj.isDone){
+            holder.task.setPaintFlags(holder.task.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+        }
 
     }
 
@@ -73,9 +85,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         }
     }
 
-
-
-
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         public AppCompatRadioButton radioButton;
         public AppCompatTextView task;
@@ -93,6 +102,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         this.onTodoClickListener = todoClickListener;
         this.radioButton.setOnClickListener(this);
         itemView.setOnClickListener(this);
+
     }
 
         @Override

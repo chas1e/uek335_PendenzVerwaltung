@@ -16,6 +16,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -25,6 +26,7 @@ import android.view.View;
 
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.RadioButton;
 
 import java.util.Calendar;
 import java.util.List;
@@ -80,7 +82,15 @@ public class MainActivity extends AppCompatActivity implements OnTodoClickListen
 
     @Override
     public void onTodoRadioButtonClick(Task task) {
-       // TaskViewModel.update();
+        Task update = task;
+
+        if(task.isDone){
+            update.setDone(false);
+            TaskViewModel.update(update);
+        }else{
+            update.setDone(true);
+            TaskViewModel.update(update);
+        }
         recyclerViewAdapter.notifyDataSetChanged();
     }
 

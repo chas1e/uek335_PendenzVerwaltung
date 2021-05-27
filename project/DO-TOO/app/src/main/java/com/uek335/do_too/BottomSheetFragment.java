@@ -38,8 +38,6 @@ public class BottomSheetFragment extends BottomSheetDialogFragment implements Vi
     private ImageButton enterDescription;
     private ImageButton priorityButton;
     private EditText description;
-    private Menu priorityPicker;
-    private int selectedButtonId;
     private CalendarView calendarView;
     private ImageButton saveButton;
     private Group calendarGroup;
@@ -160,7 +158,7 @@ public class BottomSheetFragment extends BottomSheetDialogFragment implements Vi
                 }
             }else {
                 Snackbar.make(saveButton, R.string.empty_field, Snackbar.LENGTH_INDEFINITE);
-
+                enterTodo.setError(getResources().getString(R.string.error));
             }
         });
 
