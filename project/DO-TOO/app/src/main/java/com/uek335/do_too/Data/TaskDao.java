@@ -6,6 +6,7 @@ import androidx.room.Delete;
 import androidx.room.Ignore;
 import androidx.room.Insert;
 import androidx.room.Query;
+import androidx.room.Update;
 
 import com.uek335.do_too.model.Task;
 
@@ -28,4 +29,7 @@ public interface TaskDao {
 
     @Delete
     void delete(Task task);
+
+    @Update
+    void update(Task task);
 }

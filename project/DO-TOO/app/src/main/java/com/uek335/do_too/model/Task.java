@@ -30,8 +30,7 @@ public class Task {
     @ColumnInfo(name = "is_done")
     public boolean isDone;
 
-    public Task(long taskId, String task, String taskDescription, Priority priority, Date dueDate, Date dateCreated, boolean isDone) {
-        this.taskId = taskId;
+    public Task( String task, String taskDescription, Priority priority, Date dueDate, Date dateCreated, boolean isDone) {
         this.task = task;
         this.taskDescription = taskDescription;
         this.priority = priority;
