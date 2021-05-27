@@ -18,6 +18,7 @@
     <style name="Theme.do_too.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
+        <item name="android:fontFamily">@font/overpassregular</item>
     </style>
     <style name="Theme.do_too.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
     <style name="Theme.do_too.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />

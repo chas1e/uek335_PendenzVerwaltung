@@ -5,6 +5,7 @@
     <string name="enter_todo_hint">z.B. Einkaufen gehen</string>
     <string name="today_calendar_button">Heute</string>
     <string name="empty_field">Leere Pendenz</string>
+    <string name="no_pendencies">Keine Pendenzen vorhanden</string>
     <string name="due_date_text">Datum</string>
     <string name="today">Heute</string>
     <string name="tomorrow">Morgen</string>

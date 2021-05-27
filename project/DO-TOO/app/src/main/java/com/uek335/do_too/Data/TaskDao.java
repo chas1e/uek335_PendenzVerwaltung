@@ -27,6 +27,7 @@ public interface TaskDao {
     @Query("SELECT * FROM task_table WHERE task_id ==:id")
     LiveData<Task> get(long id);
 
+
     @Delete
     void delete(Task task);
 

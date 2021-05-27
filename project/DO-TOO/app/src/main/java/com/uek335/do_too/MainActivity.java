@@ -59,6 +59,7 @@ public class MainActivity extends AppCompatActivity implements OnTodoClickListen
         taskViewModel.getAllTasks().observe(this, tasks -> {
         recyclerViewAdapter = new RecyclerViewAdapter(tasks, this);
         recyclerView.setAdapter(recyclerViewAdapter);
+        recyclerViewAdapter.checkPendencies(this);
         });
 
         FloatingActionButton fab = findViewById(R.id.fab);

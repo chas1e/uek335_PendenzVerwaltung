@@ -1,8 +1,10 @@
 package com.uek335.do_too.adapter;
 
+import android.app.Activity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatRadioButton;
@@ -21,6 +23,7 @@ import java.util.List;
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>{
     private final List<Task> tasksList;
     private final OnTodoClickListener todoClickListener;
+    private TextView textView2;
 
 
     public RecyclerViewAdapter(List<Task> tasksList, OnTodoClickListener onTodoClickListener) {
@@ -48,6 +51,16 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     @Override
     public int getItemCount() {
         return tasksList.size();
+    }
+
+
+    public void checkPendencies(Activity activity) {
+        textView2 = activity.findViewById(R.id.textView2);
+        if(!tasksList.isEmpty()) {
+            textView2.setVisibility(View.GONE);
+        } else {
+            textView2.setVisibility(View.VISIBLE);
+        }
     }
 
 
