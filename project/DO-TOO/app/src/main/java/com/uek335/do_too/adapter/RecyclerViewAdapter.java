@@ -1,9 +1,13 @@
 package com.uek335.do_too.adapter;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -42,9 +46,15 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     public void onBindViewHolder(@NonNull RecyclerViewAdapter.ViewHolder holder, int position) {
 
         Task task = tasksList.get(position);
-        String formatted = Util.formatDate(task.getDueDate());
+        if(task.getDueDate() != null){
+            String formatted = Util.formatDate(task.getDueDate());
+            holder.todoChip.setText(formatted);
+        }else{
+            holder.todoChip.setText(R.string.nodate);
+        }
+
         holder.task.setText(task.getTask());
-        holder.todoChip.setText(formatted);
+
         holder.priority.setText(task.getPriority().toString());
     }
 

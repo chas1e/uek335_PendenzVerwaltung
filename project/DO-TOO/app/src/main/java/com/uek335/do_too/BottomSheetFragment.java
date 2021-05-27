@@ -32,8 +32,9 @@ import java.util.Date;
 public class BottomSheetFragment extends BottomSheetDialogFragment implements View.OnClickListener {
     private EditText enterTodo;
     private ImageButton calendarButton;
+    private ImageButton enterDescription;
     private ImageButton priorityButton;
-    private ImageButton description;
+    private EditText description;
     private Menu priorityPicker;
     private EditText selectedPriority;
     private int selectedButtonId;
@@ -62,6 +63,8 @@ public class BottomSheetFragment extends BottomSheetDialogFragment implements Vi
         saveButton = view.findViewById(R.id.save_todo_button);
         priorityButton = view.findViewById(R.id.priority_todo_button);
         //priorityPicker = view.findViewById((R.id.priority_picker));
+        enterDescription = view.findViewById(R.id.enter_description);
+        description = view.findViewById(R.id.description);
 
         Chip todayChip = view.findViewById(R.id.today_chip);
         todayChip.setOnClickListener(this);
@@ -82,6 +85,8 @@ public class BottomSheetFragment extends BottomSheetDialogFragment implements Vi
             Task task = sharedViewModel.getSelectedItem().getValue();
             enterTodo.setText(task.getTask());
             dueDate = task.getDueDate();
+            description.setText(task.getTaskDescription());
+
         }
     }
 
@@ -99,9 +104,11 @@ public class BottomSheetFragment extends BottomSheetDialogFragment implements Vi
             Util.hideSoftKeyboard(view);
         });
 
+        enterDescription.setOnClickListener(view13 -> description.setVisibility(description.getVisibility() == View.GONE ? View.VISIBLE : View.GONE));
+
         saveButton.setOnClickListener(view1 -> {
             String task = enterTodo.getText().toString().trim();
-            if(!TextUtils.isEmpty(task) && dueDate != null){
+            if(!TextUtils.isEmpty(task)){
                 Task myTask = new Task(task, "", Priority.Normal, dueDate, Calendar.getInstance().getTime(), false);
                 if (isEdit){
                     Task updateTask = sharedViewModel.getSelectedItem().getValue();
@@ -112,6 +119,9 @@ public class BottomSheetFragment extends BottomSheetDialogFragment implements Vi
                     updateTask.setTaskDescription("ajsi ");
                     TaskViewModel.update(updateTask);
                     sharedViewModel.setEdit(false);
+                    this.dueDate = null;
+                    this.enterTodo = null;
+                    this.description = null;
                     this.dismiss();
                 }else{
                     TaskViewModel.insert(myTask);

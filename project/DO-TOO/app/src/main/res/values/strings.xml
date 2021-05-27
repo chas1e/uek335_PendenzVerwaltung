@@ -14,9 +14,10 @@
     <string name="radio_high">High</string>
     <string name="radio_med">Medium</string>
     <string name="radio_low">Low</string>
-    <string name="image_description">button image</string>
+    <string name="description">Beschreibung..</string>
     <string name="add_todos">Add a Todo...</string>
     <string name="option_1">Niedrig</string>
     <string name="option_2">Normal</string>
     <string name="option_3">Hoch</string>
+    <string name="nodate">Kein Datum</string>
 </resources>
