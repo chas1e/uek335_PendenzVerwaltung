@@ -10,25 +10,18 @@ import android.widget.CalendarView;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.PopupMenu;
-import android.widget.Toast;
-
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.snackbar.Snackbar;
-import com.uek335.do_too.adapter.RecyclerViewAdapter;
 import com.uek335.do_too.model.Priority;
 import com.uek335.do_too.model.SharedViewModel;
 import com.uek335.do_too.model.Task;
 import com.uek335.do_too.model.TaskViewModel;
 import com.uek335.do_too.util.Util;
-
 import androidx.annotation.MenuRes;
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.Group;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.RecyclerView;
-
-
 import java.util.Calendar;
 import java.util.Date;
 
@@ -47,10 +40,11 @@ public class BottomSheetFragment extends BottomSheetDialogFragment implements Vi
     private boolean isEdit;
     private Priority priority;
 
+    //Empty Constructor der notwendig ist
     public BottomSheetFragment(){
-
     }
 
+    //Sobald der Bottom Dialog aufgerufen wird, werden alle Buttons und Textfelder usw hier bereitgestellt und verknüpft
     @Override
     public View onCreateView(
             LayoutInflater inflater, ViewGroup container,
@@ -63,8 +57,6 @@ public class BottomSheetFragment extends BottomSheetDialogFragment implements Vi
         enterTodo = view.findViewById(R.id.enter_todo_et);
         saveButton = view.findViewById(R.id.save_todo_button);
         priorityButton = view.findViewById(R.id.priority_todo_button);
-
-        //priorityPicker = view.findViewById((R.id.priority_picker));
         enterDescription = view.findViewById(R.id.enter_description);
         description = view.findViewById(R.id.description);
 
@@ -76,9 +68,9 @@ public class BottomSheetFragment extends BottomSheetDialogFragment implements Vi
         Chip nextWeekChip = view.findViewById(R.id.next_week_chip);
         nextWeekChip.setOnClickListener(this);
 
-
         return view;
     }
+    //Vor allem wichtig für den Edit. Befüllt daten von Task in die Felder des Dialogs
     @Override
     public void onResume(){
         super.onResume();
@@ -93,6 +85,7 @@ public class BottomSheetFragment extends BottomSheetDialogFragment implements Vi
         }
     }
 
+    // Pop up Menü für die Priorität
     private void showMenu(View view, @MenuRes int menuRes){
         PopupMenu popup = new PopupMenu(getContext(), view);
         popup.getMenuInflater().inflate(menuRes, popup.getMenu());
@@ -105,6 +98,7 @@ public class BottomSheetFragment extends BottomSheetDialogFragment implements Vi
 
     }
 
+    //Alles was mit abspeichern und schreiben von einer Pendenz zu tun hat. Der ganze Dialog mit allen Funktionen und Features
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         sharedViewModel = new ViewModelProvider(requireActivity()).get(SharedViewModel.class);
@@ -121,11 +115,8 @@ public class BottomSheetFragment extends BottomSheetDialogFragment implements Vi
             dueDate = calendar.getTime();
             Util.hideSoftKeyboard(view);
         });
-
         enterDescription.setOnClickListener(view13 -> description.setVisibility(description.getVisibility() == View.GONE ? View.VISIBLE : View.GONE));
         description.setVisibility(View.GONE);
-
-
         saveButton.setOnClickListener(view1 -> {
             if(priority == null){
                 priority = Priority.Normal;
@@ -157,7 +148,7 @@ public class BottomSheetFragment extends BottomSheetDialogFragment implements Vi
                     this.dismiss();
                 }
             }else {
-                Snackbar.make(saveButton, R.string.empty_field, Snackbar.LENGTH_INDEFINITE);
+                //Error Message für Titel der Pendenz
                 enterTodo.setError(getResources().getString(R.string.error));
             }
         });
@@ -165,6 +156,7 @@ public class BottomSheetFragment extends BottomSheetDialogFragment implements Vi
 
     }
 
+    //Handhabt unsere Klicke im Dialog
     @Override
     public void onClick(View view) {
         int id = view.getId();

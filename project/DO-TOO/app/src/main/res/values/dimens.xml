@@ -1,5 +1,4 @@
 <resources>
-    <dimen name="fab_margin">16dp</dimen>
     <dimen name="font_size_16">16sp</dimen>
     <dimen name="font_size_24">24sp</dimen>
     <dimen name="dimen_0">0dp</dimen>
@@ -11,5 +10,4 @@
     <dimen name="top_margin">6dp</dimen>
     <dimen name="recycler_padding">16dp</dimen>
     <dimen name="radio_padding">6dp</dimen>
-
 </resources>

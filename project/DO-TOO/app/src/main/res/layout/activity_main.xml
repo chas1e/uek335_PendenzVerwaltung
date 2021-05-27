@@ -30,7 +30,6 @@
         android:theme="@style/Theme.do_too"
         >
 
-
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
@@ -51,11 +50,10 @@
         android:tint="@color/white"
         app:srcCompat="@android:drawable/ic_input_add"
         tools:ignore="ContentDescription"
-        app:fabCustomSize="87.75dp"
+        app:fabCustomSize="70.75dp"
         android:scaleType="center"
         app:maxImageSize="38dp"
         />
-
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view"

@@ -7,32 +7,24 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.uek335.do_too.adapter.OnTodoClickListener;
 import com.uek335.do_too.adapter.RecyclerViewAdapter;
-import com.uek335.do_too.model.Priority;
 import com.uek335.do_too.model.SharedViewModel;
 import com.uek335.do_too.model.Task;
 import com.uek335.do_too.model.TaskViewModel;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
-import android.view.View;
-
-import android.view.Menu;
-import android.view.MenuItem;
-import android.widget.RadioButton;
-
-import java.util.Calendar;
-import java.util.List;
-
-
+/**
+ * @author Jonathan und David
+ * Dies ist die main activity unseres Pendenz Verwaltung Systems
+ */
 public class MainActivity extends AppCompatActivity implements OnTodoClickListener {
+    /*
+    Hier werden wichtige felder und variablen erstellt
+     */
     private TaskViewModel taskViewModel;
     public static final String TAG = "ITEM";
     private RecyclerView recyclerView;
@@ -40,6 +32,9 @@ public class MainActivity extends AppCompatActivity implements OnTodoClickListen
     BottomSheetFragment bottomSheetFragment;
     private SharedViewModel sharedViewModel;
 
+    /*
+    Dies ist die Methode, welche aufgerufen wird, wenn die Applikation startet. Das ist im Manifest festgelegt. Buttons, toolbar und alles andere wird hier "gefunden" und bereitgestellt.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,15 +59,18 @@ public class MainActivity extends AppCompatActivity implements OnTodoClickListen
         recyclerViewAdapter.checkPendencies(this);
         });
 
+        //Dies ist der floating action button, er ist unten rechts zu finden. Er erlaubt uns, neue Pendenzen zu erfassen.
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(view -> {
             showBottomSheetDialog();
         });
     }
+
+    //Das Fragment, auch als Bottom Sheet Dialog wird hier aufgerufen. So kann man mit dem FAB ein Dialogfeld öffen, welche uns erlaubt, neue Pendenzen zu kreeiren.
     private void showBottomSheetDialog(){
         bottomSheetFragment.show(getSupportFragmentManager(), bottomSheetFragment.getTag());
     }
-
+    //Ist zuständig für den Klich auf die Pendenz um den Editor zu öffnen
     @Override
     public void onTodoClick(Task task) {
         sharedViewModel.selectItem(task);
@@ -80,6 +78,7 @@ public class MainActivity extends AppCompatActivity implements OnTodoClickListen
         showBottomSheetDialog();
     }
 
+    //Ist zuständig für den Klick auf den Radio Button. Beendet eine Pendenz, streicht diese durch und macht ein update in der Datenbank
     @Override
     public void onTodoRadioButtonClick(Task task) {
         Task update = task;
