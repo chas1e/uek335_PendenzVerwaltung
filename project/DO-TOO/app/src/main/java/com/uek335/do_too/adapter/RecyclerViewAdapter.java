@@ -1,17 +1,11 @@
 package com.uek335.do_too.adapter;
 
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
-import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
-import android.widget.RadioButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -20,19 +14,18 @@ import androidx.appcompat.widget.AppCompatTextView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.chip.Chip;
-import com.google.android.material.snackbar.Snackbar;
 import com.uek335.do_too.R;
 import com.uek335.do_too.model.Priority;
 import com.uek335.do_too.model.Task;
-import com.uek335.do_too.model.TaskViewModel;
 import com.uek335.do_too.util.Util;
 
 import java.util.List;
 
+//View Adapter für die Recycle View. Ermöglicht uns die Task-Blöcke schön und richtig darzustellen
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>{
     private final List<Task> tasksList;
     private final OnTodoClickListener todoClickListener;
-    private TextView textView2;
+    private TextView NoTasks;
 
     public RecyclerViewAdapter(List<Task> tasksList, OnTodoClickListener onTodoClickListener) {
         this.tasksList = tasksList;
@@ -45,7 +38,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.todo_row, parent, false);
         return new ViewHolder(view);
     }
-
+//füllt Daten in den Block
     @Override
     public void onBindViewHolder(@NonNull RecyclerViewAdapter.ViewHolder holder, int position) {
         Task task_obj = tasksList.get(position);
@@ -56,7 +49,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         }else{
             holder.todoChip.setText(R.string.nodate);
         }
-
+//Je nach Priorität eine andere Farbe
         holder.task.setText(task_obj.getTask());
         holder.priority.setText(task_obj.getPriority().toString());
         if(task_obj.getPriority() == Priority.Hoch){
@@ -64,6 +57,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         }else if(task_obj.getPriority() == Priority.Niedrig){
             holder.priority.setTextColor(Color.parseColor("#43A047"));
         }
+        //Streichen falls die Pendenz abgeschlossen wurde
         if(task_obj.isDone){
             holder.task.setPaintFlags(holder.task.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
         }
@@ -75,16 +69,16 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         return tasksList.size();
     }
 
-
+    //Falls keine Tasks vorhanden sind wird ein Info Block dargestellt
     public void checkPendencies(Activity activity) {
-        textView2 = activity.findViewById(R.id.textView2);
+        NoTasks = activity.findViewById(R.id.NoTasks);
         if(!tasksList.isEmpty()) {
-            textView2.setVisibility(View.GONE);
+            NoTasks.setVisibility(View.GONE);
         } else {
-            textView2.setVisibility(View.VISIBLE);
+            NoTasks.setVisibility(View.VISIBLE);
         }
     }
-
+    //View Holder Klasse um Komponenten des Task-Block mit dem Backend zu verlinken
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         public AppCompatRadioButton radioButton;
         public AppCompatTextView task;
@@ -104,7 +98,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         itemView.setOnClickListener(this);
 
     }
-
+        //Handhabt alle Klicks auf die Task-Blöcke
         @Override
         public void onClick(View view) {
             Task currTask =  tasksList.get(getAdapterPosition());;

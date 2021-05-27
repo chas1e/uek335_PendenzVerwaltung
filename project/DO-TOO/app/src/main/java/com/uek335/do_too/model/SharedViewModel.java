@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+//Eine Klasse die uns Hilft Tasks zwischen dem Dialog und der Main Acticty zu transportieren. Notweniding fuer update
 public class SharedViewModel extends ViewModel {
     private final MutableLiveData<Task> selectedItem = new MutableLiveData<>();
     private boolean isEdit;

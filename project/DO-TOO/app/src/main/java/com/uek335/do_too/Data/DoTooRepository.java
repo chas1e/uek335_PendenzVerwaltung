@@ -8,7 +8,7 @@ import com.uek335.do_too.model.Task;
 import com.uek335.do_too.util.TaskRoomDatabase;
 
 import java.util.List;
-
+//repository für DB, über DAO kommunikation mit DB. Erlaubt zugriff mit ViewModel
 public class DoTooRepository {
     private final TaskDao taskDao;
     private final LiveData<List<Task>> allTasks;
@@ -22,7 +22,7 @@ public class DoTooRepository {
     public LiveData<List<Task>> getAllTasks() {
         return allTasks;
     }
-
+    //Crud Logik
     public void insert(Task task){
         TaskRoomDatabase.databaseWriterExecutor.execute(() -> taskDao.insertTask(task));
     }

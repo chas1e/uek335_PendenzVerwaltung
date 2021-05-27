@@ -1,12 +1,12 @@
 package com.uek335.do_too.model;
 
-
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
 import java.util.Date;
 
+//Task entity, Datenbank table basiert auf dieser Klasse
 @Entity(tableName = "task_table")
 public class Task {
 
@@ -107,4 +107,6 @@ public class Task {
                 ", isDone=" + isDone +
                 '}';
     }
+
+    //Alles sehr simpel, keine Logik nur Daten
 }

@@ -6,6 +6,7 @@ import com.uek335.do_too.model.Priority;
 
 import java.util.Date;
 
+//Hilft uns verschiedene Werte wie z.B. Daten oder Prioritaeten in der Datenbank zu Speichern
 public class Converter {
 
     @TypeConverter
