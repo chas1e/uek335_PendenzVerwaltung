@@ -8,6 +8,7 @@ import com.google.android.material.snackbar.Snackbar;
 import com.uek335.do_too.adapter.OnTodoClickListener;
 import com.uek335.do_too.adapter.RecyclerViewAdapter;
 import com.uek335.do_too.model.Priority;
+import com.uek335.do_too.model.SharedViewModel;
 import com.uek335.do_too.model.Task;
 import com.uek335.do_too.model.TaskViewModel;
 
@@ -35,6 +36,7 @@ public class MainActivity extends AppCompatActivity implements OnTodoClickListen
     private RecyclerView recyclerView;
     private RecyclerViewAdapter recyclerViewAdapter;
     BottomSheetFragment bottomSheetFragment;
+    private SharedViewModel sharedViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,8 +55,9 @@ public class MainActivity extends AppCompatActivity implements OnTodoClickListen
 
         taskViewModel = new ViewModelProvider.AndroidViewModelFactory(MainActivity.this.getApplication()).create(TaskViewModel.class);
 
+        sharedViewModel= new ViewModelProvider(this).get(SharedViewModel.class);
         taskViewModel.getAllTasks().observe(this, tasks -> {
-        recyclerViewAdapter = new RecyclerViewAdapter(tasks, this::onTodoClick);
+        recyclerViewAdapter = new RecyclerViewAdapter(tasks, this);
         recyclerView.setAdapter(recyclerViewAdapter);
         });
 
@@ -68,7 +71,15 @@ public class MainActivity extends AppCompatActivity implements OnTodoClickListen
     }
 
     @Override
-    public void onTodoClick(int adapterPosition, Task task) {
-
+    public void onTodoClick(Task task) {
+        sharedViewModel.selectItem(task);
     }
+
+    @Override
+    public void onTodoRadioButtonClick(Task task) {
+       // TaskViewModel.update();
+        recyclerViewAdapter.notifyDataSetChanged();
+    }
+
+
 }

@@ -10,8 +10,10 @@ import androidx.appcompat.widget.AppCompatTextView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.chip.Chip;
+import com.google.android.material.snackbar.Snackbar;
 import com.uek335.do_too.R;
 import com.uek335.do_too.model.Task;
+import com.uek335.do_too.model.TaskViewModel;
 import com.uek335.do_too.util.Util;
 
 import java.util.List;
@@ -66,19 +68,19 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         priority = itemView.findViewById(R.id.todo_row_priority);
         todoChip = itemView.findViewById(R.id.todo_row_chip);
         this.onTodoClickListener = todoClickListener;
-
+        this.radioButton.setOnClickListener(this);
         itemView.setOnClickListener(this);
     }
 
         @Override
         public void onClick(View view) {
+            Task currTask =  tasksList.get(getAdapterPosition());;
             int id = view.getId();
             if(id == R.id.todo_row_layout){
-                Task currTask = tasksList.get(getAdapterPosition());
-                onTodoClickListener.onTodoClick(getAdapterPosition(), currTask);
+                onTodoClickListener.onTodoClick(currTask);
+            }else if (id == R.id.todo_radio_button){
+                onTodoClickListener.onTodoRadioButtonClick(currTask);
             }
         }
     }
-
-
 }

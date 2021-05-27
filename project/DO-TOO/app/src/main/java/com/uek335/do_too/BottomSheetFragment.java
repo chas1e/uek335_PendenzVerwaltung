@@ -12,12 +12,17 @@ import android.widget.ImageButton;
 
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.google.android.material.chip.Chip;
+import com.google.android.material.snackbar.Snackbar;
+import com.uek335.do_too.adapter.RecyclerViewAdapter;
 import com.uek335.do_too.model.Priority;
+import com.uek335.do_too.model.SharedViewModel;
 import com.uek335.do_too.model.Task;
 import com.uek335.do_too.model.TaskViewModel;
 
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.Group;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.RecyclerView;
 
 
 import java.util.Calendar;
@@ -36,7 +41,7 @@ public class BottomSheetFragment extends BottomSheetDialogFragment implements Vi
     private Group calendarGroup;
     private Date dueDate;
     private Calendar calendar = Calendar.getInstance();
-
+    private SharedViewModel sharedViewModel;
 
     public BottomSheetFragment(){
 
@@ -69,6 +74,15 @@ public class BottomSheetFragment extends BottomSheetDialogFragment implements Vi
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        sharedViewModel = new ViewModelProvider(requireActivity()).get(SharedViewModel.class);
+        if(sharedViewModel.getSelectedItem().getValue() != null){
+            Task task = sharedViewModel.getSelectedItem().getValue();
+            
+        }
+
+
+
+
 
         calendarButton.setOnClickListener(view12 -> calendarGroup.setVisibility(
                 calendarGroup.getVisibility() == View.GONE ? View.VISIBLE : View.GONE));
